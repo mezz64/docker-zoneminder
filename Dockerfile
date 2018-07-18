@@ -79,6 +79,7 @@ ARG RUNTIME_DEPENDENCIES="\
 	mariadb-server \
 	net-tools \
 	php \
+	php-gd \
 	php-cli \
 	php-mysql \
 	unzip \
