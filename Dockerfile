@@ -161,9 +161,7 @@ RUN \
  cp /tmp/zmevents/zmeventnotification.pl /usr/bin/ && \
  perl -MCPAN -e "force install Net::WebSocket::Server" && \
  perl -MCPAN -e "force install LWP::Protocol::https" && \
- perl -MCPAN -e "force install Config::IniFiles" && \
- perl -MCPAN -e "force install File::Spec" && \
- perl -MCPAN -e "force install Getopt::Long" && \
+ perl -MCPAN -e "force install Config::IniFiles"
 
 RUN \
  echo "**** configure apache ****" && \
