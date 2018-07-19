@@ -42,6 +42,10 @@ ARG BUILD_DEPENDENCIES="\
 	libvorbis-dev \
 	libvpx-dev \
 	libx264-dev \
+	libcrypt-mysql-perl \
+	libyaml-perl \
+	make \
+	libjson-perl \
 	php-dev \
 	php-pear \
 	yasm"
@@ -98,7 +102,9 @@ RUN \
  apt-get install -y \
 	--no-install-recommends \
 	$BUILD_DEPENDENCIES \
-	$RUNTIME_DEPENDENCIES && \
+	$RUNTIME_DEPENDENCIES
+
+RUN \
  echo "**** install php_apcu and php_apcu-bc ****" && \
  pecl install apcu && \
  pecl install apcu_bc-beta && \
@@ -115,7 +121,9 @@ RUN \
 	/etc/php/7.0/apache2/conf.d/40-apc.ini && \
  ln -sf \
 	/etc/php/7.0/mods-available/z_apc.ini \
-	/etc/php/7.0/cli/conf.d/40-apc.ini && \
+	/etc/php/7.0/cli/conf.d/40-apc.ini
+
+RUN \
  echo "**** build zoneminder ****" && \
  git clone https://github.com/ZoneMinder/ZoneMinder /tmp/zoneminder && \
  cd /tmp/zoneminder && \
@@ -143,7 +151,21 @@ RUN \
  sed -i \
 	-e "s#\(ZM_DIR_EXPORTS.*=\).*#\1/data/zoneminder/exports#g" \
 	/etc/zm/conf.d/01-system-paths.conf && \
- adduser abc video && \
+ adduser abc video
+
+RUN \
+ echo "**** add zmeventserver ****" && \
+ git clone https://github.com/pliablepixels/zmeventserver /tmp/zmevents && \
+ cd /tmp/zmevents && \
+ cp /tmp/zmevents/zmeventnotification.ini /etc/ && \
+ cp /tmp/zmevents/zmeventnotification.pl /usr/bin/ && \
+ perl -MCPAN -e "force install Net::WebSocket::Server" && \
+ perl -MCPAN -e "force install LWP::Protocol::https" && \
+ perl -MCPAN -e "force install Config::IniFiles" && \
+ perl -MCPAN -e "force install File::Spec" && \
+ perl -MCPAN -e "force install Getopt::Long" && \
+
+RUN \
  echo "**** configure apache ****" && \
  cp misc/apache.conf /defaults/default.conf && \
  a2enmod cgi rewrite && \
@@ -165,7 +187,9 @@ RUN \
 		/etc/mysql/my.cnf && \
  sed -i \
 	"s/user='mysql'/user='abc'/g" \
-		/usr/bin/mysqld_safe && \
+		/usr/bin/mysqld_safe
+
+RUN \
  echo "**** uninstall build packages and reinstall runtime packages ****" && \
  apt-get purge -y --auto-remove \
 	$BUILD_DEPENDENCIES && \

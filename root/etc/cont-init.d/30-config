@@ -43,6 +43,7 @@ fi
 
 chgrp -c abc /etc/zm/zm.conf
 chmod 640 /etc/zm/zm.conf
+chmod 755 /usr/bin/zmeventnotification.pl
 chown abc:abc \
 	/data
 chown -R abc:abc \
