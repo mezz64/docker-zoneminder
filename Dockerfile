@@ -42,10 +42,6 @@ ARG BUILD_DEPENDENCIES="\
 	libvorbis-dev \
 	libvpx-dev \
 	libx264-dev \
-	libcrypt-mysql-perl \
-	libyaml-perl \
-	make \
-	libjson-perl \
 	php-dev \
 	php-pear \
 	yasm"
@@ -58,6 +54,7 @@ ARG RUNTIME_DEPENDENCIES="\
 	libav-tools \
 	libbz2-dev \
 	libclass-std-fast-perl \
+	libcrypt-mysql-perl \
 	libcurl3 \
 	libdata-dump-perl \
 	libdata-uuid-perl \
@@ -67,6 +64,7 @@ ARG RUNTIME_DEPENDENCIES="\
 	libdevice-serialport-perl \
 	libio-socket-multicast-perl \
 	libjpeg-turbo8 \
+	libjson-perl \
 	libmime-lite-perl \
 	libmime-perl \
 	libmp4v2-2 \
@@ -76,9 +74,11 @@ ARG RUNTIME_DEPENDENCIES="\
 	libsys-cpu-perl \
 	libsys-meminfo-perl \
 	libsys-mmap-perl \
+	libyaml-perl \
 	libvlc5 \
 	libvlccore8 \
 	libwww-perl \
+	make \
 	mariadb-client \
 	mariadb-server \
 	net-tools \
