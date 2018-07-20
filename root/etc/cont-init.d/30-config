@@ -21,7 +21,7 @@ cp /config/apache/zoneminder.conf /etc/apache2/sites-available/000-default.conf
 
 # copy zmeventconfig
 [[ ! -f /config/zoneminder/zmeventnotification.ini ]] && \
-	cp /tmp/zmevents/zmeventnotification.ini /config/zoneminder/zmeventnotification.ini
+	cp /tmp2/zmevents/zmeventnotification.ini /config/zoneminder/zmeventnotification.ini
 cp /config/zoneminder/zmeventnotification.ini /etc/zmeventnotification.ini
 
 # generate ssl keys

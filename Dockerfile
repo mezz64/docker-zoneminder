@@ -156,9 +156,9 @@ RUN \
 
 RUN \
  echo "**** add zmeventserver ****" && \
- git clone https://github.com/pliablepixels/zmeventserver /tmp/zmevents && \
- cd /tmp/zmevents && \
- cp /tmp/zmevents/zmeventnotification.pl /usr/bin/ && \
+ git clone https://github.com/pliablepixels/zmeventserver /tmp2/zmevents && \
+ cd /tmp2/zmevents && \
+ cp /tmp2/zmevents/zmeventnotification.pl /usr/bin/ && \
  perl -MCPAN -e "force install Net::WebSocket::Server" && \
  perl -MCPAN -e "force install LWP::Protocol::https" && \
  perl -MCPAN -e "force install Config::IniFiles" && \
