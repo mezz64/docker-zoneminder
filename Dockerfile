@@ -165,6 +165,7 @@ RUN \
 
 RUN \
  echo "**** configure apache ****" && \
+ cd /tmp/zoneminder && \
  cp misc/apache.conf /defaults/default.conf && \
  a2enmod cgi rewrite && \
  sed -i \
