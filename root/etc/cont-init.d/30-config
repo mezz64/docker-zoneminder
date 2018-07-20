@@ -19,6 +19,11 @@ mkdir -p \
 	cp /defaults/default.conf /config/apache/zoneminder.conf
 cp /config/apache/zoneminder.conf /etc/apache2/sites-available/000-default.conf
 
+# copy zmeventconfig
+[[ ! -f /config/zoneminder/zmeventnotification.ini ]] && \
+	cp /tmp/zmevents/zmeventnotification.ini /config/zoneminder/zmeventnotification.ini
+cp /config/zoneminder/zmeventnotification.ini /etc/zmeventnotification.ini
+
 # generate ssl keys
 openssl req -x509 -nodes -days 4096 -newkey rsa:2048 -out /config/keys/cert.crt -keyout /config/keys/cert.key -subj "/C=US/ST=NY/L=New York/O=Zoneminder/OU=Zoneminder/CN=*"
 chmod 777 /config/keys

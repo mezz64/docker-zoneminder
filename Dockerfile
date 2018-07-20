@@ -10,6 +10,7 @@ LABEL maintainer="sparklyballs"
 ARG DEBIAN_FRONTEND="noninteractive"
 ENV MYSQL_DIR="/data"
 ENV DATADIR=$MYSQL_DIR/database
+ENV SHMEM="50%"
 
 # packages as variables
 ARG BUILD_DEPENDENCIES="\
@@ -42,6 +43,7 @@ ARG BUILD_DEPENDENCIES="\
 	libvorbis-dev \
 	libvpx-dev \
 	libx264-dev \
+	make \
 	php-dev \
 	php-pear \
 	yasm"
@@ -78,7 +80,6 @@ ARG RUNTIME_DEPENDENCIES="\
 	libvlc5 \
 	libvlccore8 \
 	libwww-perl \
-	make \
 	mariadb-client \
 	mariadb-server \
 	net-tools \
@@ -157,7 +158,6 @@ RUN \
  echo "**** add zmeventserver ****" && \
  git clone https://github.com/pliablepixels/zmeventserver /tmp/zmevents && \
  cd /tmp/zmevents && \
- cp /tmp/zmevents/zmeventnotification.ini /etc/ && \
  cp /tmp/zmevents/zmeventnotification.pl /usr/bin/ && \
  perl -MCPAN -e "force install Net::WebSocket::Server" && \
  perl -MCPAN -e "force install LWP::Protocol::https" && \
