@@ -7,7 +7,7 @@ sed -i "s#;date.timezone =.*#date.timezone = $PHP_TZ#" /etc/php/7.0/apache2/php.
 # make folders if required
 mkdir -p \
 	"$DATADIR" \
-	/config/{apache,log/mysql,log/zoneminder,mysql,zoneminder} \
+	/config/{apache,log/mysql,log/zoneminder,mysql,zoneminder,keys} \
 	/data/{zoneminder/events,zoneminder/exports,zoneminder/images,zoneminder/sounds} \
 	/var/run/mysqld \
 	/var/run/zoneminder \
@@ -18,6 +18,15 @@ mkdir -p \
 [[ ! -f /config/apache/zoneminder.conf ]] && \
 	cp /defaults/default.conf /config/apache/zoneminder.conf
 cp /config/apache/zoneminder.conf /etc/apache2/sites-available/000-default.conf
+
+# generate ssl keys
+openssl req -x509 -nodes -days 4096 -newkey rsa:2048 -out /config/keys/cert.crt -keyout /config/keys/cert.key -subj "/C=US/ST=NY/L=New York/O=Zoneminder/OU=Zoneminder/CN=*"
+chmod 777 /config/keys
+# make links so we can use the standard config
+rm -rf /etc/apache2/ssl/zoneminder.crt
+ln -sf /config/keys/cert.crt /etc/apache2/ssl/zoneminder.crt
+rm -rf /etc/apache2/ssl/zoneminder.key
+ln -sf /config/keys/cert.key /etc/apache2/ssl/zoneminder.key
 
 # cleanup stale pid and sock files
 [[ -e /var/run/mysqld/mysqld.sock || -e /var/run/mysqld/mysqld.pid ]] && \
