@@ -8,7 +8,7 @@ LABEL maintainer="sparklyballs"
 
 # environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
-ENV MYSQL_DIR="/data"
+ENV MYSQL_DIR="/config/data"
 ENV DATADIR=$MYSQL_DIR/database
 ENV SHMEM="50%"
 
